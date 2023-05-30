@@ -1,0 +1,240 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.title1{
+size: 20px;
+padding-left: 20px;
+}
+
+.linea{
+    color: #33179c;
+}
+
+.contenedor-search{
+    margin-bottom: 40px;
+}
+
+.title-datos-vehiculos{
+    margin-top: 80px;
+}
+
+
+.titulo-buscador{
+    display: block;
+    padding-top: 40px;
+    padding-left: 120px;
+    margin-bottom: 10px;
+}
+
+.search-input{
+    margin-left: 20px;
+    height: 30px; 
+    border-color: #33179c;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px; 
+}
+
+.search-button{
+    border: none;
+    color: white;
+    background-color: #33179c;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-bottom: 10px;
+    padding-right: 15px;   
+    margin-left: 15px;  
+}
+
+.update-table{
+    border: none;
+    color: white;
+    background-color: #33179c;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-bottom: 10px;
+    padding-right: 15px;   
+    margin-left: 15px;  
+}
+
+.boton-agregar{
+    width: auto;
+    border: none;
+    margin-left: 10px;
+    color: white;
+    background-color: #33179c;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-bottom: 10px;
+    padding-right: 15px;   
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+
+.table-vehiculos{
+    display: block;
+}
+
+.tabla-datos {
+    border-collapse: collapse; 
+    width: 100%; 
+    background-color: #d9d9d9;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+ }
+
+ .hilo .cabezera { 
+    color: black; 
+    text-align: center; 
+    padding-bottom: 5px;
+}
+
+.celda .celda-r{
+    text-align: center;
+}
+
+.tabla-body .cabezera .celda-r { 
+    background-color: white;
+    text-align: center;
+    padding-bottom: 5px;
+} 
+
+.tabla-body .cabezera{
+    border-color: #33179c;
+    border-width: 1.5px;
+    border-style: solid;
+}
+
+.actualizar{
+    border: none;
+    background-color: white;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;  
+    border-color: #000;: #33179c;
+}
+
+.delete{
+    border: none;
+    background-color: white;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;  
+}
+
+a{
+  outline: none;
+  text-decoration: none;
+  color: white;
+}
+
+a:hover {
+    opacity: 0.8;
+  }
+
+  a:link, a:visited, a:active {
+    text-decoration:none;
+}
+
+.empty{
+    justify-content: center;
+}
+
+.delete{
+    border: #fc1c1c 2px solid;
+    color: black;
+    padding: 10px 20px;
+    font-size: 13px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    cursor: pointer;
+    width: 50%; 
+    max-width: 100px; 
+}
+
+.actualizar{
+    border: #33179c 2px solid;
+    color: black;
+    padding: 10px 20px;
+    font-size: 13px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    cursor: pointer;
+    width: 50%; 
+    max-width: 100px; 
+    text-align: right;
+}
+
+.delete:hover{
+    background-color: #fc1c1c;
+}
+
+.actualizar:hover{
+    background-color: #33179c;
+}
+
+.search-button:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.boton:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+
+  .update-table:hover{
+    cursor: pointer;
+    opacity: 0.8;
+  }
+
+  table{
+    overflow: scroll;
+  }
+
+  @media screen and (max-width: 767px ) {
+    table {
+      display: block;
+      overflow-x: auto;
+      overflow-y: auto;
+      border-radius:10px;
+
+    }
+    th, td {
+        text-align: left;
+        border: 1px solid #33179c;
+     }
+    .celda-r .actualizar {
+        /* el texto del enlace será invisible */
+        font-size: 0;
+      }
+      .celda-r .delete {
+        /* el texto del enlace será invisible */
+        font-size: 0;
+      }
+}
