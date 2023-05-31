@@ -15,9 +15,9 @@ router.post('/',
 router.get('/', get_verificaciones);
 
 router.put('/',
-    body('idVerificacion').exists().notEmpty().isNumeric().not().isString(),
-    body('idVehiculo').exists().notEmpty().isNumeric().not().isString(),
-    body('fechaPago').exists().notEmpty().isDate(),
+    body('idVerificacion').exists().notEmpty().isString(),
+    body('idVehiculo').exists().notEmpty().isString(),
+    body('fechaPago').exists().notEmpty().isString(),
     body('monto').exists().notEmpty().isString(),
     body('folio').exists().notEmpty().isString(),
     put_verificaciones);

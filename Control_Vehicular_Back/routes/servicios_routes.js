@@ -15,8 +15,8 @@ router.post('/',
 router.get('/', get_seguros);
 
 router.put('/',
-    body('idServicio').exists().notEmpty().isNumeric().not().isString(),
-    body('idVehiculo').exists().notEmpty().isNumeric().not().isString(),
+    body('idServicio').exists().notEmpty().isString(),
+    body('idVehiculo').exists().notEmpty().isString(),
     body('descripcion').exists().notEmpty().isString(),
     body('fecha_Hora').exists().notEmpty().isString(),
     body('observaciones').exists().isString(),

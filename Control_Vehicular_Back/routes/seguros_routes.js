@@ -6,21 +6,21 @@ const { body, param } = require("express-validator");
 const { post_seguros, get_seguros, put_seguros, delete_seguros } = require('../controllers/seguros_controller.js');
 
 router.post('/',
-    body('idVehiculo').exists().notEmpty().isNumeric().not().isString(),
+    body('idVehiculo').exists().notEmpty().isString(),
     body('numeroSeguro').exists().notEmpty().isString(),
     body('nombreAseguradora').exists().notEmpty().isString(),
-    body('fechaInicio').exists().notEmpty().isDate(),
-    body('fechaVencimiento').exists().notEmpty().isDate(),
+    body('fechaInicio').exists().notEmpty().isString(),
+    body('fechaVencimiento').exists().notEmpty().isString(),
     post_seguros);
 
 router.get('/', get_seguros);
 
 router.put('/',
-    body('idSeguro').exists().notEmpty().isNumeric().not().isString(),
+    body('idSeguro').exists().notEmpty().isString(),
     body('numeroSeguro').exists().notEmpty().isString(),
     body('nombreAseguradora').exists().notEmpty().isString(),
-    body('fechaInicio').exists().notEmpty().isDate(),
-    body('fechaVencimiento').exists().notEmpty().isDate(),
+    body('fechaInicio').exists().notEmpty().isString(),
+    body('fechaVencimiento').exists().notEmpty().isString(),
     put_seguros);
 
 router.delete('/:idSeguro',

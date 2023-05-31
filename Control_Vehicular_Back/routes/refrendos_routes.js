@@ -8,17 +8,17 @@ const { post_refrendos, get_refrendos, put_refrendos, delete_refrendos } = requi
 router.post('/',
     body('idVehiculo').exists().notEmpty().isNumeric().not().isString(),
     body('monto').exists().notEmpty().isString(),
-    body('fechaInicio').exists().notEmpty().isDate(),
-    body('fechaVencimiento').exists().notEmpty().isDate(),
+    body('fechaInicio').exists().notEmpty().isString(),
+    body('fechaVencimiento').exists().notEmpty().isString(),
     post_refrendos);
 
 router.get('/', get_refrendos);
 
 router.put('/',
-    body('idRefrendo').exists().notEmpty().isNumeric().not().isString(),
+    body('idRefrendo').exists().notEmpty().isString(),
     body('monto').exists().notEmpty().isString(),
-    body('fechaInicio').exists().notEmpty().isDate(),
-    body('fechaVencimiento').exists().notEmpty().isDate(),
+    body('fechaInicio').exists().notEmpty().isString(),
+    body('fechaVencimiento').exists().notEmpty().isString(),
     put_refrendos);
 
 router.delete('/:idRefrendo',
