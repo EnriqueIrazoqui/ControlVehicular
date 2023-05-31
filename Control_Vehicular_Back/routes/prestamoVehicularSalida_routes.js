@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { body, param } = require("express-validator");
 
-const { post_PrestamoVehicularSalida, get_PrestamoVehicularSalida, put_PrestamoVehicularSalida, delete_PrestamoVehicularSalida } = require('../controllers/prestamoVehicularSalida_controller.js');
+const { post_PrestamoVehicularSalida, get_PrestamoVehicularSalida, get_busqueda, put_PrestamoVehicularSalida, delete_PrestamoVehicularSalida } = require('../controllers/prestamoVehicularSalida_controller.js');
 
 router.post('/',
     body('idSupervisor').exists().notEmpty().isString(),
@@ -21,6 +21,10 @@ router.post('/',
     post_PrestamoVehicularSalida);
 
 router.get('/', get_PrestamoVehicularSalida);
+
+router.get('/:placas',
+    param('placas').exists().notEmpty().isString(),
+    get_busqueda);
 
 router.put('/',
     body('id').exists().notEmpty().isNumeric().not().isString(),

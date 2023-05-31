@@ -21,6 +21,9 @@ import EditarSeguro from "../components/pages/Vehiculos/seguros/EditarSeguro";
 import EditarRefrendo from "../components/pages/Vehiculos/refrendos/EditarRefrendo";
 import EditarSalida from "../components/pages/Bitacoras/Salida/EditarSalida";
 import EditarEntrada from "../components/pages/Bitacoras/Entrada/EditarEntrada";
+import DatosServicios from "../components/pages/Vehiculos/servicios/DatosServicios";
+import NuevoServicio from "../components/pages/Vehiculos/servicios/NuevoServicio";
+import EditarServicio from "../components/pages/Vehiculos/servicios/EditarServicio";
 
 
 export const RutasP = () => {
@@ -45,6 +48,9 @@ export const RutasP = () => {
             <Route path="/datosRefrendos" element={<DatosRefrendos/>}/>
             <Route path="/nuevoRefrendo" element={<NuevoRefrendo/>}/>
             <Route path="/editarRefrendo/:id" element={<EditarRefrendo/>}/>
+            <Route path="/datosServicios" element={<DatosServicios/>}/>
+            <Route path="/nuevoServicio" element={<NuevoServicio/>}/>
+            <Route path="/editarServicio/:id" element={<EditarServicio/>}/>
             <Route path="/prestamoSalida" element={<PrestamoSalida/>}/>
             <Route path="/nuevaSalida" element={<NuevaSalida/>}/>
             <Route path="/editarSalida/:id" element={<EditarSalida/>}/>

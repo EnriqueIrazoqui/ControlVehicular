@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { body, param } = require("express-validator");
 
-const { post_seguros, get_seguros, put_seguros, delete_seguros } = require('../controllers/seguros_controller.js');
+const { post_seguros, get_seguros, get_busqueda,put_seguros, delete_seguros } = require('../controllers/seguros_controller.js');
 
 router.post('/',
     body('idVehiculo').exists().notEmpty().isString(),
@@ -14,6 +14,10 @@ router.post('/',
     post_seguros);
 
 router.get('/', get_seguros);
+
+router.get('/:placas',
+    param('placas').exists().notEmpty().isString(),
+    get_busqueda);
 
 router.put('/',
     body('idSeguro').exists().notEmpty().isString(),

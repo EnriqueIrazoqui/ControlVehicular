@@ -22,6 +22,7 @@ const IndexVehiculos = () => {
         <li className='lista'><NavLink to="/DatosVerificaciones" className='boton'>Verificaciones</NavLink></li>
         <li className='lista'><NavLink to="/DatosSeguros" className='boton'>Seguros</NavLink></li>
         <li className='lista'><NavLink to="/DatosRefrendos" className='boton'>Refrendos</NavLink></li>
+        <li className='lista'><NavLink to="/DatosServicios" className='boton'>Servicios</NavLink></li>
     </ul>
     </div>
   )

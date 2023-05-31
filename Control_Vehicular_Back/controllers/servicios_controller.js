@@ -68,6 +68,40 @@ const get_seguros = async (req, res) => {
     });
 }
 
+const get_busqueda = async (req, res) => {
+    const {idServicio} = req.params;
+
+    const validation_errors = validationResult(req);
+    if (!validation_errors.isEmpty()) {
+        const response = return_error(401, 'datos con formato incorrecto');
+        return res.status(401).json(response);
+    }
+
+    await pool.getConnection().then( async (conn) => {
+        try{
+            const validacion_clave = await conn.query('SELECT count(idServicio) as result FROM Servicios WHERE idServicio = ?', idServicio);
+            if(parseInt(validacion_clave[0].result) === 0){
+                const error = return_error(406, "El servicio no existe");
+                return res.status(406).json(error);
+            }
+            const query = await conn.query("SELECT s.idServicio, v.idVehiculo, v.marca, v.modelo, v.placas, v.idCampus, s.descripcion, s.fecha_Hora, s.observaciones FROM Servicios AS s INNER JOIN Vehiculo AS v ON s.idVehiculo = v.idVehiculo WHERE s.idServicio = ?", idServicio);
+            console.log(query);
+
+            res.json(query);
+            conn.end();
+        }catch(error){
+            res.status(500).json({
+                "ok": false,
+                "message": {
+                    "statusCode": 500,
+                    "messageText": "internal server error"
+                }
+            })
+            conn.end();
+        }
+    });
+}
+
 const put_seguros = async (req, res) => {
     const {idServicio, idVehiculo, descripcion, fecha_Hora, observaciones} = req.body;
 
@@ -153,6 +187,7 @@ const delete_seguros = async (req, res) => {
 module.exports = {
     post_seguros,
     get_seguros,
+    get_busqueda,
     put_seguros,
     delete_seguros
 }

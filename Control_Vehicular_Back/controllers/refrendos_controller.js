@@ -68,6 +68,40 @@ const get_refrendos = async (req, res) => {
     });
 }
 
+const get_busqueda = async (req, res) => {
+    const {placas} = req.params;
+
+    const validation_errors = validationResult(req);
+    if (!validation_errors.isEmpty()) {
+        const response = return_error(401, 'datos con formato incorrecto');
+        return res.status(401).json(response);
+    }
+
+    await pool.getConnection().then( async (conn) => {
+        try{
+            const validacion_clave = await conn.query('SELECT count(placas) as result FROM Vehiculo WHERE placas = ?', placas);
+            if(parseInt(validacion_clave[0].result) === 0){
+                const error = return_error(406, "El vehiculo no existe");
+                return res.status(406).json(error);
+            }
+            const query = await conn.query("SELECT r.idRefrendo, v.idVehiculo, v.marca, v.modelo, v.placas, v.idCampus, r.monto, r.fechaInicio, r.fechaVencimiento FROM Refrendos AS r INNER JOIN Vehiculo AS v ON r.idVehiculo = v.idVehiculo WHERE v.placas = ?", placas);
+            console.log(query);
+
+            res.json(query);
+            conn.end();
+        }catch(error){
+            res.status(500).json({
+                "ok": false,
+                "message": {
+                    "statusCode": 500,
+                    "messageText": "internal server error"
+                }
+            })
+            conn.end();
+        }
+    });
+}
+
 const put_refrendos = async (req, res) => {
     const {idRefrendo, monto, fechaInicio, fechaVencimiento} = req.body;
 
@@ -153,6 +187,7 @@ const delete_refrendos = async (req, res) => {
 module.exports = {
     post_refrendos,
     get_refrendos,
+    get_busqueda,
     put_refrendos,
     delete_refrendos
 }

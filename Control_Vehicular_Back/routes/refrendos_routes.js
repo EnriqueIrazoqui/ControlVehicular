@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { body, param } = require("express-validator");
 
-const { post_refrendos, get_refrendos, put_refrendos, delete_refrendos } = require('../controllers/refrendos_controller.js');
+const { post_refrendos, get_refrendos,get_busqueda, put_refrendos, delete_refrendos } = require('../controllers/refrendos_controller.js');
 
 router.post('/',
     body('idVehiculo').exists().notEmpty().isNumeric().not().isString(),
@@ -13,6 +13,10 @@ router.post('/',
     post_refrendos);
 
 router.get('/', get_refrendos);
+
+router.get('/:placas',
+    param('placas').exists().notEmpty().isString(),
+    get_busqueda);
 
 router.put('/',
     body('idRefrendo').exists().notEmpty().isString(),

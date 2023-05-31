@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { body, param } = require("express-validator");
 
-const { post_verificaciones, get_verificaciones, put_verificaciones, delete_verificaciones } = require('../controllers/verificaciones_controller.js');
+const { post_verificaciones, get_verificaciones, get_busqueda, put_verificaciones, delete_verificaciones } = require('../controllers/verificaciones_controller.js');
 
 router.post('/',
     body('idVehiculo').exists().notEmpty().isNumeric().not().isString(),
@@ -13,6 +13,10 @@ router.post('/',
     post_verificaciones);
 
 router.get('/', get_verificaciones);
+
+router.get('/:placas',
+    param('placas').exists().notEmpty().isString(),
+    get_busqueda);
 
 router.put('/',
     body('idVerificacion').exists().notEmpty().isString(),
