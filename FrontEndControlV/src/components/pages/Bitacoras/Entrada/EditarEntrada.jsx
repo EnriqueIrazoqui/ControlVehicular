@@ -8,7 +8,6 @@ import {useParams} from 'react-router-dom';
 
 const EditarEntrada = () => {
     const{formulario ,cambiado} = useForm({});
-    const [resultado] = useState("no_enviado");
     const params = useParams();
     const [salida, setSalida] = useState([]);
 
@@ -27,7 +26,6 @@ const EditarEntrada = () => {
           let nuevo = formulario;  
           console.log(nuevo)
     
-    
           const {datos} = await Peticiones(Global.url+"prestamoVehicularRegreso", "PUT", nuevo);
     
           if(datos.ok === true){
@@ -39,24 +37,18 @@ const EditarEntrada = () => {
             // Definido
           }
           
-    
           if(datos.message.status  === 500){
-           /* setResultado("error");*/
             alert("Error en el servidor");
           }
     
           if(datos.message.status === 401){
-            /*setResultado("campus");*/
             alert("Datos con formato incorrecto");
           }
     
           if(datos.message.status === 406){
-            /*setResultado("folio");*/
             alert("Revise que el vehiculo, usuario y supervisor existan");
           }
     
-          //setResultado(true);
-          console.log(datos);
         }
 
   return (
@@ -64,14 +56,9 @@ const EditarEntrada = () => {
          <div className="contact_form">
 
 <div className="formulario">      
-  <h1 className='tittle'>Editar entrada</h1>
-  <strong>{resultado == "guardado"? "Folio guardado": ""}</strong>   
-  <strong>{resultado == "error"? "Error en el servidor": ""}</strong>
-  <strong>{resultado == "campus"? "Datos con formato incorrecto": ""}</strong>
-  <strong>{resultado == "folio"? "El folio ya existe o el ID del automovil no existe": ""}</strong>        
+  <h1 className='tittle'>Editar entrada</h1>     
 
     <pre>{JSON.stringify(formulario)}</pre>
-
 
       <form action="" onSubmit={editar}>    
 
@@ -151,7 +138,7 @@ const EditarEntrada = () => {
           
             <div className="botones">
                 <button className="boton-eliminar" type="reset" name="cancelar" id="cancelar"> <NavLink to="/prestamoEntrada"><p> Cancelar</p></NavLink></button>
-                <button className="boton-guardar" type="submit" name="enviar_formulario" id="enviar" value="Guardar"><p>Guardar</p></button>           
+                <button className="boton-guardar" type="submit" name="enviar_formulario" id="enviar" value="Guardar"><p>Actualizar</p></button>           
             </div>
       </form>
 </div>  

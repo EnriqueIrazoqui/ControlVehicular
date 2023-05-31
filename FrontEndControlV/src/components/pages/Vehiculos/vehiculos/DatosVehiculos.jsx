@@ -4,7 +4,8 @@ import { NavLink,Link } from 'react-router-dom';
 import { useState , useEffect } from 'react';
 import { Global } from '../../../../Helpers/Global';
 import Peticiones from '../../../../Helpers/Peticiones';
-
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 const ColoredLine = ({ color }) => (
   <hr
@@ -24,19 +25,11 @@ const DatosVehiculos = () => {
         ConseguirVehiculos();
     },[])
 
-    const [buscar,setBuscar] = useState("");
-
-    /*
-    const busqueda = (e) => {
-        e.preventDefault();
-        console.log(e.target.search.value);
-    }*/
-
     const [cargando, setCargando] = useState(true);
 
     const ConseguirVehiculos = async() =>{
     const {datos} = await Peticiones(Global.url+"automovil", "GET");
-    console.log(datos);
+    /*console.log(datos);*/
     setVehiculos(datos)
     setCargando(false) 
     }
@@ -64,13 +57,24 @@ const DatosVehiculos = () => {
     const valorInput = () =>{
         let busqueda = document.querySelector("#search-id").value;    
         ConseguirVehiculos1(busqueda);
-      }
+    }
 
       const inputRef = useRef(null);
 
-      const Click = () => {
+    const Click = () => {
         inputRef.current.value = ''; // Borra el contenido del input
-      };
+    };
+
+    const download = () =>{
+        const doc = new jsPDF()
+
+        doc.autoTable({
+            margin: { top: 10 },
+            theme: 'plain',
+            html: '#tabla' })
+
+        doc.save('vehiculos.pdf')
+    }
         
 
   return (
@@ -83,13 +87,6 @@ const DatosVehiculos = () => {
     <div className="contenedor-search">
         <label className="titulo-buscador" htmlFor="search" >Placas del vehiculo</label>
 
-        {/*
-           <form onSubmit={busqueda}>
-        <input  className="search-input" placeholder="Buscar vehiculo por placas"  size="50" type="text"  ref={inputRef} id="search_id"  name="search"/>
-        <input  className="search-button" value="Buscar" type="submit" id="search" name="search_id"/>
-        </form>
-    */}
-
         <input  className="search-input" placeholder="Buscar vehiculo por placas"  size="50" type="text" id="search-id" ref={inputRef} name="search_id"/>
         <button className='search-button'  onClick={()  => {
                     valorInput();
@@ -101,10 +98,14 @@ const DatosVehiculos = () => {
                     Click();
             }}> Actualizar tabla</button>
         <NavLink to="/NuevoVehiculo"><button className="boton-agregar" type="button"> Agregar vehiculo</button></NavLink>
+
+        <button className='update-table' onClick={()  => {
+                    download();
+            }}>Descargar PDF</button>
     </div>
     
     <div className="table-vehiculos">
-    <table className="tabla-datos">
+    <table className="tabla-datos" id="tabla">
             <thead className='hilo'>
                 <tr className='cabezera'> 
                     <th className='celda'>Id vehiculo</th> 
@@ -115,8 +116,6 @@ const DatosVehiculos = () => {
                     <th className='celda'>Color</th>
                     <th className='celda'>No. Serie</th>
                     <th className='celda'>Tipo de Combustible</th>
-                    <th className='celda'>Actualizar</th>
-                    <th className='celda'>Borrar</th> 
                 </tr>
             </thead>
 
@@ -137,7 +136,7 @@ const DatosVehiculos = () => {
                             <td className='celda-r'>{vehiculo.color}</td>
                             <td className='celda-r'>{vehiculo.serie}</td>
                             <td className='celda-r'>{vehiculo.tipoCombustible}</td>
-                            <td className='celda-r'> <Link to={"/EditarVehiculo/"+vehiculo.placas}><button className="actualizar"></button></Link></td> 
+                            <td className='celda-r'> <Link to={"/EditarVehiculo/"+vehiculo.placas}><button className="actualizar">Actualizar</button></Link></td> 
                             <td className='celda-r'><button onClick={()  => {
                                  var bool=confirm("¿Seguro que quieres eliminar el registro?");
                                  if(bool){
@@ -146,7 +145,7 @@ const DatosVehiculos = () => {
                                    alert("Se cancelo el borrado");
                                  }
                               
-                            }} className="delete"></button></td>    
+                            }} className="delete">Borrar</button></td>    
                             </tr>  
                         );
                     })

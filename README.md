@@ -1,5 +1,15 @@
 # ControlVehicular
 Backend y FrontEnd
 
-Recuerda instalar las dependecias del front y este se inicia con npm run dev y tienes que iniciar el backend que esta adjuntado sino puede que te de problemas.
-Problemas con PUT, imagenes y PDF, espero mañana poder resolver almenos 2 problemas de estos.
+BackEnd instalacion:
+1: npm install.
+2: npm start.
+3: Debe de iniciar correctamente el servidor
+
+FrontEnd Instalacion:
+1: npm install.
+2: npm run dev.
+3: Si tienes problemas con el servidor una vez este corriendo, presiona h en la consola.
+
+Pendientes:
+Problemas con PUT (Solo con regreso,salida y vehiculos), imagenes.

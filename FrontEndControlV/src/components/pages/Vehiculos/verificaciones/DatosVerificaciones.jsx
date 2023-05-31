@@ -4,6 +4,8 @@ import { NavLink,Link } from 'react-router-dom';
 import { useState , useEffect } from 'react';
 import { Global } from '../../../../Helpers/Global';
 import Peticiones from '../../../../Helpers/Peticiones';
+import jsPDF from 'jspdf'
+import autoTable from 'jspdf-autotable'
 
 const ColoredLine = ({color}) => (
     <hr
@@ -62,25 +64,29 @@ const DatosVerificaciones = () => {
       const Click = () => {
         inputRef.current.value = ''; // Borra el contenido del input
       };
+
+      const download = () =>{
+        const doc = new jsPDF()
+
+        doc.autoTable({
+            margin: { top: 10 },
+            theme: 'plain',
+            html: '#tabla' })
+
+        doc.save('verificaciones.pdf')
+        }
         
 
 
   return (
     <div>
-            <div className="title-datos-vehiculos">
+    <div className="title-datos-vehiculos">
         <h1 className="title1">Datos de las verificaciones</h1>
         <ColoredLine color="#33179c" />
     </div>
 
     <div className="contenedor-search">
         <label className="titulo-buscador" htmlFor="search" >Placas del vehiculo</label>
-
-        {/*
-           <form onSubmit={busqueda}>
-        <input  className="search-input" placeholder="Buscar vehiculo por placas"  size="50" type="text"  ref={inputRef} id="search_id"  name="search"/>
-        <input  className="search-button" value="Buscar" type="submit" id="search" name="search_id"/>
-        </form>
-    */}
 
         <input  className="search-input" placeholder="Buscar vehiculo por placas"  size="50" type="text" id="search-id" ref={inputRef} name="search_id"/>
         <button className='search-button'  onClick={()  => {
@@ -93,10 +99,15 @@ const DatosVerificaciones = () => {
                     Click();
             }}> Actualizar tabla</button>
         <NavLink to="/nuevaVerificacion"><button className="boton-agregar" type="button">Agregar verificaciones</button></NavLink>
+
+        <button className='update-table' onClick={()  => {
+                    download();
+            }}>Descargar PDF</button>
+
     </div>
     
     <div className="table-vehiculos">
-    <table className="tabla-datos">
+    <table className="tabla-datos" id="tabla">
             <thead className='hilo'>
                 <tr className='cabezera'> 
                     <th className='celda'>Id verificacion</th> 
@@ -108,8 +119,6 @@ const DatosVerificaciones = () => {
                     <th className='celda'>FechaPago</th>
                     <th className='celda'>Monto</th>
                     <th className='celda'>Folio</th>
-                    <th className='celda'>Actualizar</th>
-                    <th className='celda'>Borrar</th> 
                 </tr>
             </thead>
 
@@ -131,7 +140,7 @@ const DatosVerificaciones = () => {
                             <td className='celda-r'>{verificacion.fechaPago}</td>
                             <td className='celda-r'>{verificacion.monto}</td>
                             <td className='celda-r'>{verificacion.folio}</td>
-                            <td className='celda-r'> <Link to={"/editarVerificacion/"+verificacion.placas}><button className="actualizar"></button></Link></td> 
+                            <td className='celda-r'> <Link to={"/editarVerificacion/"+verificacion.placas}><button className="actualizar">Actualizar</button></Link></td> 
                             <td className='celda-r'><button onClick={()  => {
                                  var bool=confirm("¿Seguro que quieres eliminar el registro?");
                                  if(bool){
@@ -139,7 +148,7 @@ const DatosVerificaciones = () => {
                                  }else{
                                    alert("Se cancelo el borrado");
                                  }
-                            }} className="delete"></button></td>    
+                            }} className="delete">Borrar</button></td>    
                             </tr>  
                         );
                     })

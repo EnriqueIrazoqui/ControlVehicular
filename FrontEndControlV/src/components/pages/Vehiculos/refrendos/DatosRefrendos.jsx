@@ -4,6 +4,8 @@ import { NavLink,Link } from 'react-router-dom';
 import { useState , useEffect } from 'react';
 import { Global } from '../../../../Helpers/Global';
 import Peticiones from '../../../../Helpers/Peticiones';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 const ColoredLine = ({ color }) => (
     <hr
@@ -20,8 +22,6 @@ const DatosRefrendos = () => {
     useEffect(() =>{
         ConseguirVerificaciones();
     },[])
-
-    /*const [buscar,setBuscar] = useState("");*/
 
     const [cargando, setCargando] = useState(true);
 
@@ -61,6 +61,17 @@ const DatosRefrendos = () => {
       const Click = () => {
         inputRef.current.value = ''; // Borra el contenido del input
       };
+
+    const download = () =>{
+        const doc = new jsPDF()
+
+        doc.autoTable({
+            margin: { top: 10 },
+            theme: 'plain',
+            html: '#tabla' })
+
+        doc.save('refrendos.pdf')
+    }
         
   return (
     <div>
@@ -71,13 +82,6 @@ const DatosRefrendos = () => {
 
     <div className="contenedor-search">
         <label className="titulo-buscador" htmlFor="search" >Placas del vehiculo</label>
-
-        {/*
-           <form onSubmit={busqueda}>
-        <input  className="search-input" placeholder="Buscar vehiculo por placas"  size="50" type="text"  ref={inputRef} id="search_id"  name="search"/>
-        <input  className="search-button" value="Buscar" type="submit" id="search" name="search_id"/>
-        </form>
-    */}
 
         <input  className="search-input" placeholder="Buscar vehiculo por placas"  size="50" type="text" id="search-id" ref={inputRef} name="search_id"/>
         <button className='search-button'  onClick={()  => {
@@ -90,10 +94,14 @@ const DatosRefrendos = () => {
                     Click();
             }}> Actualizar tabla</button>
         <NavLink to="/nuevoRefrendo"><button className="boton-agregar" type="button"> Agregar refrendo</button></NavLink>
+
+        <button className='update-table' onClick={()  => {
+                    download();
+            }}>Descargar PDF</button>
     </div>
     
     <div className="table-vehiculos">
-    <table className="tabla-datos">
+    <table className="tabla-datos" id="tabla">
             <thead className='hilo'>
                 <tr className='cabezera'> 
                     <th className='celda'>Id refrendo</th> 
@@ -105,8 +113,6 @@ const DatosRefrendos = () => {
                     <th className='celda'>Monto</th>
                     <th className='celda'>Fecha de contratacion</th>
                     <th className='celda'>Fecha de vencimiento</th>
-                    <th className='celda'>Actualizar</th>
-                    <th className='celda'>Borrar</th> 
                 </tr>
             </thead>
 
@@ -128,7 +134,7 @@ const DatosRefrendos = () => {
                             <td className='celda-r'>{refrendo.monto}</td>
                             <td className='celda-r'>{refrendo.fechaInicio}</td>
                             <td className='celda-r'>{refrendo.fechaVencimiento}</td>
-                            <td className='celda-r'> <Link to={"/editarRefrendo/"+refrendo.placas}><button className="actualizar"></button></Link></td> 
+                            <td className='celda-r'> <Link to={"/editarRefrendo/"+refrendo.placas}><button className="actualizar">Actualizar</button></Link></td> 
                             <td className='celda-r'><button onClick={()  => {
                                      var bool=confirm("¿Seguro que quieres eliminar el registro?");
                                      if(bool){
@@ -136,7 +142,7 @@ const DatosRefrendos = () => {
                                      }else{
                                        alert("Se cancelo el borrado");
                                      }
-                            }} className="delete"></button></td>    
+                            }} className="delete">Eliminar</button></td>    
                             </tr>  
                         );
                     })
@@ -151,7 +157,6 @@ const DatosRefrendos = () => {
         </tbody> 
     </table>
     </div>
-      
     </div>
   )
 }
