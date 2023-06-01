@@ -41,7 +41,7 @@ function buscarUsuario(id) {
 }
 
 const post_PrestamoVehicularSalida = async (req, res) => {
-    const { idSupervisor, idUsuario, idVehiculo, kilometraje, descripcionDanos, tapetes, llantasDeRefaccion, gatoHidraulico, extras, nivelDeCombustible, fechaHora } = req.body;
+    const { idSupervisor, idUsuario, idVehiculo, kilometraje, descripcionDanos, tapetes, llantasDeRefaccion, gatoHidraulico, extras, nivelDeCombustible, fechaHora, foto } = req.body;
 
     const validation_errors = validationResult(req);
     if (!validation_errors.isEmpty()) {
@@ -68,32 +68,21 @@ const post_PrestamoVehicularSalida = async (req, res) => {
                 return res.status(406).json(error);
             }
 
-            if (req.file) {
-                const imagePath = req.file.path;
+            const data = [idSupervisor, idUsuario, idVehiculo, kilometraje, descripcionDanos, tapetes, llantasDeRefaccion, gatoHidraulico, extras, nivelDeCombustible, fechaHora, foto];
 
-                // Leer la imagen desde el sistema de archivos
-                const image = fs.readFileSync(imagePath);
+            const query = await conn.query("INSERT INTO PrestamoVehiculoSalida(idSupervisor, idUsuario, idVehiculo, kilometraje, descripcionDanos, tapetes, llantasDeRefaccion, gatoHidraulico, extras, nivelDeCombustible, fechaHora, foto) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", data);
+            console.log(query);
 
-                // Convertir la imagen a un Buffer para almacenarla en la base de datos
-                const encodedImage = image.toString('base64');
+            const id = await conn.query('SELECT MAX(id) as ID FROM PrestamoVehiculoSalida');
 
-                // Resto del código para guardar los datos en la base de datos
-                const data = [idSupervisor, idUsuario, idVehiculo, kilometraje, descripcionDanos, tapetes, llantasDeRefaccion, gatoHidraulico, extras, nivelDeCombustible, fechaHora, encodedImage];
-
-                const query = await conn.query("INSERT INTO PrestamoVehiculoSalida(idSupervisor, idUsuario, idVehiculo, kilometraje, descripcionDanos, tapetes, llantasDeRefaccion, gatoHidraulico, extras, nivelDeCombustible, fechaHora, foto) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", data);
-                console.log(query);
-
-                const id = await conn.query('SELECT MAX(id) as ID FROM PrestamoVehiculoSalida');
-
-                res.status(200).json({
-                    'ok': true,
-                    'idVehiculo': id[0].ID,
-                    'mensaje': {
-                        'statusCode': 200,
-                        'menssageText': 'El prestamo fue registrado con exito'
-                    }
-                })
-            }
+            res.status(200).json({
+                'ok': true,
+                'idVehiculo': id[0].ID,
+                'mensaje': {
+                    'statusCode': 200,
+                    'menssageText': 'El prestamo fue registrado con exito'
+                }
+            })
             conn.end();
         } catch (error) {
             res.status(500).json({
@@ -129,7 +118,7 @@ const get_PrestamoVehicularSalida = async (req, res) => {
 }
 
 const get_busqueda = async (req, res) => {
-    const {placas} = req.params;
+    const { placas } = req.params;
 
     const validation_errors = validationResult(req);
     if (!validation_errors.isEmpty()) {
@@ -137,10 +126,10 @@ const get_busqueda = async (req, res) => {
         return res.status(401).json(response);
     }
 
-    await pool.getConnection().then( async (conn) => {
-        try{
+    await pool.getConnection().then(async (conn) => {
+        try {
             const validacion_clave = await conn.query('SELECT count(placas) as result FROM Vehiculo WHERE placas = ?', placas);
-            if(parseInt(validacion_clave[0].result) === 0){
+            if (parseInt(validacion_clave[0].result) === 0) {
                 const error = return_error(406, "El vehiculo no existe");
                 return res.status(406).json(error);
             }
@@ -149,7 +138,7 @@ const get_busqueda = async (req, res) => {
 
             res.json(query);
             conn.end();
-        }catch(error){
+        } catch (error) {
             res.status(500).json({
                 "ok": false,
                 "message": {

@@ -105,22 +105,7 @@ const get_PrestamoVehicularRegreso = async (req, res) => {
         try {
             const query = await conn.query("SELECT p.id, v.marca, v.modelo, v.placas, p.idSupervisor, p.idUsuario, p.kilometraje, p.descripcionDanos, p.tapetes, p.llantasDeRefaccion, p.gatoHidraulico, p.extras, p.nivelDeCombustible, p.fechaHora, p.foto FROM PrestamoVehiculoRegreso AS p INNER JOIN Vehiculo v ON p.idVehiculo = v.idVehiculo");
 
-            // Convertir la imagen codificada en base64 a un formato adecuado para enviar al cliente
-            const data = query.map((row) => {
-                const encodedImage = row.foto;
-                const imageBuffer = Buffer.from(encodedImage, 'base64');
-                const imageUrl = `http://localhost:3313/image/${row.id}`;
-
-                return {
-                    ...row,
-                    foto: {
-                        url: imageUrl,
-                        buffer: imageBuffer
-                    }
-                };
-            });
-
-            res.json(data);
+            res.json(query);
             conn.end();
         } catch (error) {
             res.status(500).json({
