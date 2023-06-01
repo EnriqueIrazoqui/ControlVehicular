@@ -18,26 +18,21 @@ const SegurosNuevo = () => {
       const {datos} = await Peticiones(Global.url+"seguros", "POST", nuevo);
 
       if(datos.ok === true){
-        /*setResultado("guardado");*/
         alert("Guardado con exito");
       }
 
       if(datos.message.status  === 500){
-       /* setResultado("error");*/
         alert("Error en el servidor");
       }
 
       if(datos.message.status === 401){
-        /*setResultado("campus");*/
         alert("Datos con formato incorrecto");
       }
 
       if(datos.message.status === 406){
-        /*setResultado("folio");*/
         alert("El ID del automovil no existe");
       }
 
-      //setResultado(true);
       console.log(datos);
     }
 
@@ -46,12 +41,6 @@ const SegurosNuevo = () => {
 
     <div className="formulario">      
       <h1 className='tittle'>Nuevo seguro</h1>
-      {/* 
-      <strong>{resultado == "guardado"? "Verificacion guardada": ""}</strong>   
-      <strong>{resultado == "error"? "Error en el servidor": ""}</strong>
-      <strong>{resultado == "campus"? "Datos con formato incorrecto": ""}</strong>
-      <strong>{resultado == "folio"? "El folio ya existe o el ID del automovil no existe": ""}</strong>        
-      */}
         <pre>{JSON.stringify(formulario)}</pre>
 
 
@@ -77,14 +66,14 @@ const SegurosNuevo = () => {
                 </p>
                 <p className='parrafo'>
                     <label className='label' htmlFor="fechaInicio" >Contratacion</label>
-                    <input className='input' type="date" name="fechaInicio" id="fechaInicio" required="obligatorio" placeholder="Fecha de inicio" onChange={cambiado}/>
+                    <input className='input' type="datetime-local" name="fechaInicio" id="fechaInicio" required="obligatorio" placeholder="Fecha de inicio" onChange={cambiado}/>
                   </p>    
               </div>
 
               <div className="inputs">
                 <p className='parrafo'>
                   <label className='label' htmlFor="fechaVencimiento" >Vencimiento</label>
-                  <input className='input' type="date" name="fechaVencimiento" id="fechaVencimiento" required="obligatorio" placeholder="Ej. 2500.00" onChange={cambiado} />
+                  <input className='input' type="datetime-local" name="fechaVencimiento" id="fechaVencimiento" required="obligatorio" placeholder="Ej. 2500.00" onChange={cambiado} />
                 </p>  
               </div>
 

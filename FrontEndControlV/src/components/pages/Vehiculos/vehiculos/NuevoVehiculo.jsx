@@ -1,6 +1,5 @@
 import "../../../../styles/stylesNuevo.css"
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
 import {useForm} from '../../../../hooks/useForm'
 import {Peticiones} from '../../../../Helpers/Peticiones'
 import {Global} from '../../../../Helpers/Global'
@@ -8,8 +7,7 @@ import {Global} from '../../../../Helpers/Global'
 const NuevoVehiculo = () => {
 
 
-    const{formulario,enviado, cambiado} = useForm({});
-    const [resultado, setResultado] = useState("no_enviado");
+    const{formulario, cambiado} = useForm({});
 
 
   const guardarVehiculo = async(e) => {
@@ -19,18 +17,18 @@ const NuevoVehiculo = () => {
       console.log(nuevoVehiculo)
 
 
-      const {datos,cargando} = await Peticiones(Global.url+"automovil", "POST", nuevoVehiculo);
+      const {datos} = await Peticiones(Global.url+"automovil", "POST", nuevoVehiculo);
 
       if(datos.ok === true){
-        setResultado("guardado");
+        alert("Vehiculo guardado con exito");
       }
 
       if(datos.ok  === false){
-        setResultado("error");
+        alert("error");
       }
 
       if(datos.message.status === 406){
-        setResultado("campus");
+        alert("campus");
       }
 
       //setResultado(true);
@@ -43,9 +41,6 @@ const NuevoVehiculo = () => {
 
     <div className="formulario">      
       <h1 className='tittle'>Nuevo vehiculo</h1>
-      <strong>{resultado == "guardado"? "Vehiculo guardado": ""}</strong>   
-      <strong>{resultado == "error"? "Error en el servidor": ""}</strong>
-      <strong>{resultado == "campus"? "El campus no existe, reviselo": ""}</strong>      
 
         {/*<pre>{JSON.stringify(formulario)}</pre>*/}
 

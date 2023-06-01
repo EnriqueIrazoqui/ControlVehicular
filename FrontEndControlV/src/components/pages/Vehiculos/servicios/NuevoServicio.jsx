@@ -56,7 +56,7 @@ const NuevoServicio = () => {
           <div className="inputs">
             <p className='parrafo'>
                 <label className='label' htmlFor="fecha_Hora" >Fecha y Hora</label>
-                <input className='input' type="datetime-local"  min="2024-01-01T00:00" name="fecha_Hora" id="fecha_Hora" required="obligatorio" onChange={cambiado}/>
+                <input className='input' type="datetime-local"  name="fecha_Hora" id="fecha_Hora" required="obligatorio" onChange={cambiado}/>
               </p>    
               <p className='parrafo'>
                 <label className='label' htmlFor="observaciones" >Observaciones</label>

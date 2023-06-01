@@ -19,22 +19,6 @@ const NuevaEntrada = () => {
 
       if(datos.ok === true){
         alert("Guardado con exito");
-
-        //subir imagen
-        const fileInput = document.querySelector("#foto");
-
-        const formData =  new FormData();
-        formData.append('file0',fileInput.files[0]);
-
-        const subida = await Peticiones(Global.url+"prestamoVehicularRegreso", "POST", formData, true);
-        console.log(subida);
-
-        if(subida.status === true){
-          alert("Imagen guardada con exito");
-
-        }else{
-          alert("Error en la imagen");
-        }
       }
 
       if (typeof datos.message !== 'undefined') {
@@ -128,14 +112,14 @@ const NuevaEntrada = () => {
                   </p>
                   <p className='parrafo'>
                     <label className='label' htmlFor="fechaHora" >Fecha y Hora</label>
-                    <input className='input' type="date" name="fechaHora" id="fechaHora" required="obligatorio" placeholder="Ej: 1" onChange={cambiado}/>
+                    <input className='input' type="datetime-local" name="fechaHora" id="fechaHora" required="obligatorio" placeholder="Ej: 1" onChange={cambiado}/>
                   </p>       
               </div>
 
               <div>
               <p className='parrafo'>
                   <label className='label' htmlFor="foto">Fotografia</label>
-                  <input className='input' type="file" name="foto" id="foto" required="obligatorio" />
+                  <input className='input' type="text" name="foto" id="foto" required="obligatorio" onChange={cambiado}/>
                 </p>
               </div>
 

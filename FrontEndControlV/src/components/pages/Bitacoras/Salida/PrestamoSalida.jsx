@@ -4,6 +4,8 @@ import { NavLink,Link } from 'react-router-dom';
 import { useState , useEffect } from 'react';
 import { Global } from '../../../../Helpers/Global';
 import Peticiones from '../../../../Helpers/Peticiones';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 const ColoredLine = ({ color }) => (
     <hr
@@ -59,6 +61,17 @@ const PrestamoSalida = () => {
       const Click = () => {
         inputRef.current.value = ''; // Borra el contenido del input
       };
+    
+      const download = () =>{
+        const doc = new jsPDF()
+
+        doc.autoTable({
+            margin: { top: 10 },
+            theme: 'plain',
+            html: '#tabla' })
+
+        doc.save('salidas.pdf')
+    }
 
   return (
     <div>
@@ -88,10 +101,15 @@ const PrestamoSalida = () => {
                     Click();
             }}> Actualizar tabla</button>
         <NavLink to="/nuevaSalida"><button className="boton-agregar" type="button">Agregar salida</button></NavLink>
+
+        <button className='update-table' onClick={()  => {
+                    download();
+            }}>Descargar PDF</button>
+        
     </div>
     
     <div className="table-vehiculos">
-    <table className="tabla-datos">
+    <table className="tabla-datos" id='tabla'>
             <thead className='hilo'>
                 <tr className='cabezera'> 
                     <th className='celda'>Id</th> 
@@ -109,8 +127,6 @@ const PrestamoSalida = () => {
                     <th className='celda'>Nivel de combustible</th>
                     <th className='celda'>Fecha y hora</th>
                     <th className='celda'>Fotografia</th>
-                    <th className='celda'>Actualizar</th>
-                    <th className='celda'>Borrar</th> 
                 </tr>
             </thead>
 
@@ -138,7 +154,7 @@ const PrestamoSalida = () => {
                             <td className='celda-r'>{salida.nivelDeCombustible}</td>
                             <td className='celda-r'>{salida.fechaHora}</td>
                             <td className='celda-r'>{salida.foto}</td>
-                            <td className='celda-r'> <Link to={"/editarSalida/"+salida.placas}><button className="actualizar"></button></Link></td> 
+                            <td className='celda-r'> <Link to={"/editarSalida/"+salida.placas}><button className="actualizar">Actualizar</button></Link></td> 
                             <td className='celda-r'><button onClick={()  => {
                                      var bool=confirm("¿Seguro que quieres eliminar el registro?");
                                      if(bool){
@@ -146,7 +162,7 @@ const PrestamoSalida = () => {
                                      }else{
                                        alert("Se cancelo el borrado");
                                      }
-                            }} className="delete"></button></td>    
+                            }} className="delete">Borrar</button></td>    
                             </tr>  
                         );
                     })

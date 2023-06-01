@@ -6,8 +6,8 @@ const { body, param } = require("express-validator");
 const { post_verificaciones, get_verificaciones, get_busqueda, put_verificaciones, delete_verificaciones } = require('../controllers/verificaciones_controller.js');
 
 router.post('/',
-    body('idVehiculo').exists().notEmpty().isNumeric().not().isString(),
-    body('fechaPago').exists().notEmpty().isDate(),
+    body('idVehiculo').exists().notEmpty().isString(),
+    body('fechaPago').exists().notEmpty().isString(),
     body('monto').exists().notEmpty().isString(),
     body('folio').exists().notEmpty().isString(),
     post_verificaciones);

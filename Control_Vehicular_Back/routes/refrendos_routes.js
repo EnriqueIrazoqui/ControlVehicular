@@ -6,7 +6,7 @@ const { body, param } = require("express-validator");
 const { post_refrendos, get_refrendos,get_busqueda, put_refrendos, delete_refrendos } = require('../controllers/refrendos_controller.js');
 
 router.post('/',
-    body('idVehiculo').exists().notEmpty().isNumeric().not().isString(),
+    body('idVehiculo').exists().notEmpty().isString(),
     body('monto').exists().notEmpty().isString(),
     body('fechaInicio').exists().notEmpty().isString(),
     body('fechaVencimiento').exists().notEmpty().isString(),

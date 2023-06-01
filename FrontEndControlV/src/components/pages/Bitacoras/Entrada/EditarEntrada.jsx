@@ -15,6 +15,8 @@ const EditarEntrada = () => {
         ConseguirEntrada();
     },[])
 
+    
+
     const ConseguirEntrada= async() =>{
         const {datos} = await Peticiones(Global.url+"prestamoVehicularRegreso/"+params.id, "GET");
         setSalida(datos);

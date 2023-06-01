@@ -1,14 +1,11 @@
 import "../../../../styles/stylesNuevo.css"
 import {NavLink} from 'react-router-dom';
-import {useState} from 'react';
 import {useForm} from '../../../../hooks/useForm'
 import {Peticiones} from '../../../../Helpers/Peticiones'
 import {Global} from '../../../../Helpers/Global'
 
 const NuevaSalida = () => {
     const{formulario ,cambiado} = useForm({});
-    const [resultado, setResultado] = useState("no_enviado");
-
 
   const guardar = async(e) => {
     e.preventDefault();
@@ -23,11 +20,6 @@ const NuevaSalida = () => {
         /*setResultado("guardado");*/
         alert("Guardado con exito");
       }
-
-      if (typeof datos.message !== 'undefined') {
-        // Ahora sabemos que foo está definido, ahora podemos continuar.
-      }
-      
 
       if(datos.message.status  === 500){
        /* setResultado("error");*/
@@ -52,11 +44,7 @@ const NuevaSalida = () => {
        <div className="contact_form">
 
     <div className="formulario">      
-      <h1 className='tittle'>Nueva salida</h1>
-      <strong>{resultado == "guardado"? "Folio guardado": ""}</strong>   
-      <strong>{resultado == "error"? "Error en el servidor": ""}</strong>
-      <strong>{resultado == "campus"? "Datos con formato incorrecto": ""}</strong>
-      <strong>{resultado == "folio"? "El folio ya existe o el ID del automovil no existe": ""}</strong>        
+      <h1 className='tittle'>Nueva salida</h1>   
 
         <pre>{JSON.stringify(formulario)}</pre>
 
@@ -117,7 +105,7 @@ const NuevaSalida = () => {
                   </p>
                   <p className='parrafo'>
                     <label className='label' htmlFor="fechaHora" >Fecha y Hora</label>
-                    <input className='input' type="date" name="fechaHora" id="fechaHora" required="obligatorio" placeholder="Ej: 1" onChange={cambiado}/>
+                    <input className='input' type="datetime-local" name="fechaHora" id="fechaHora" required="obligatorio" placeholder="Ej: 1" onChange={cambiado}/>
                   </p>       
               </div>
 

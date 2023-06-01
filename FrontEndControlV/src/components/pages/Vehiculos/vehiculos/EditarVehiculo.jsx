@@ -8,19 +8,12 @@ import {useParams} from 'react-router-dom';
 
 const EditarVehiculo = () => {
     const{formulario, cambiado} = useForm({});
-    const [resultado] = useState("no_enviado");
     const params = useParams();
     const [vehiculo, setVehiculo] = useState([]);
 
     useEffect(() =>{
         ConseguirVehiculos();
     },[])
-
-    /*
-    const busqueda = (e) => {
-        e.preventDefault();
-        console.log(e.target.search.value);
-    }*/
 
     const [setCargando] = useState(true);
 
@@ -39,22 +32,18 @@ const EditarVehiculo = () => {
       const {datos} = await Peticiones(Global.url+"automovil", "PUT", nuevoVehiculo);
 
       if(datos.ok === true){
-        /*setResultado("guardado");*/
         alert("Actualizar con exito");
       }
 
       if(datos.message.status  === 500){
-        /* setResultado("error");*/
          alert("Error en el servidor");
        }
  
        if(datos.message.status === 401){
-         /*setResultado("campus");*/
          alert("Datos con formato incorrecto");
        }
  
        if(datos.message.status === 406){
-         /*setResultado("folio");*/
          alert("La unidad no existe o el vehiculo no existe");
        }
     }
@@ -66,9 +55,6 @@ const EditarVehiculo = () => {
     <div className="formulario">    
 
       <h1 className='tittle'>Editar vehiculo</h1>
-      <strong>{resultado == "guardado"? "Vehiculo Editado": ""}</strong>   
-      <strong>{resultado == "error"? "Error en el servidor": ""}</strong>
-      <strong>{resultado == "campus"? "El campus no existe, reviselo": ""}</strong>      
 
       <pre>{JSON.stringify(formulario)}</pre>
 

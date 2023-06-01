@@ -75,7 +75,7 @@ const EditarServicio = () => {
       <div className="inputs">
         <p className='parrafo'>
             <label className='label' htmlFor="fecha_Hora" >Fecha y Hora</label>
-            <input className='input' type="text"  min="2024-01-01T00:00" name="fecha_Hora" id="fecha_Hora" required="obligatorio" placeholder="2024-01-01T00:00" onChange={cambiado} defaultValue={servicio[0]?.fecha_Hora}/>
+            <input className='input' type="text"  name="fecha_Hora" id="fecha_Hora" required="obligatorio" placeholder="2024-01-01T00:00" onChange={cambiado} defaultValue={servicio[0]?.fecha_Hora}/>
           </p>    
           <p className='parrafo'>
             <label className='label' htmlFor="observaciones" >Observaciones</label>
