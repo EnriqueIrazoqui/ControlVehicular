@@ -1,6 +1,5 @@
 import "../../../../styles/stylesNuevo.css"
 import {NavLink} from 'react-router-dom';
-import {useState} from 'react';
 import {useForm} from '../../../../hooks/useForm'
 import {Peticiones} from '../../../../Helpers/Peticiones'
 import {Global} from '../../../../Helpers/Global'
@@ -8,8 +7,6 @@ import {Global} from '../../../../Helpers/Global'
 
 const NuevaEntrada = () => {
     const{formulario ,cambiado} = useForm({});
-    const [resultado, setResultado] = useState("no_enviado");
-
 
   const guardar = async(e) => {
     e.preventDefault();
@@ -21,32 +18,44 @@ const NuevaEntrada = () => {
       const {datos} = await Peticiones(Global.url+"prestamoVehicularRegreso", "POST", nuevo);
 
       if(datos.ok === true){
-        /*setResultado("guardado");*/
         alert("Guardado con exito");
+
+        //subir imagen
+        const fileInput = document.querySelector("#foto");
+
+        const formData =  new FormData();
+        formData.append('file0',fileInput.files[0]);
+
+        const subida = await Peticiones(Global.url+"prestamoVehicularRegreso", "POST", formData, true);
+        console.log(subida);
+
+        if(subida.status === true){
+          alert("Imagen guardada con exito");
+
+        }else{
+          alert("Error en la imagen");
+        }
       }
 
       if (typeof datos.message !== 'undefined') {
-        // Ahora sabemos que foo está definido, ahora podemos continuar.
+        // Ahora sabemos que foo está definido.
       }
       
 
       if(datos.message.status  === 500){
-       /* setResultado("error");*/
         alert("Error en el servidor");
       }
 
       if(datos.message.status === 401){
-        /*setResultado("campus");*/
         alert("Datos con formato incorrecto");
       }
 
       if(datos.message.status === 406){
-        /*setResultado("folio");*/
         alert("Revise que los ID de vehiculo, usuario, salida y supervisor existan");
       }
 
       //setResultado(true);
-      console.log(datos);
+      /*console.log(datos);*/
     }
 
 
@@ -55,10 +64,6 @@ const NuevaEntrada = () => {
 
     <div className="formulario">      
       <h1 className='tittle'>Nueva entrada</h1>
-      <strong>{resultado == "guardado"? "Folio guardado": ""}</strong>   
-      <strong>{resultado == "error"? "Error en el servidor": ""}</strong>
-      <strong>{resultado == "campus"? "Datos con formato incorrecto": ""}</strong>
-      <strong>{resultado == "folio"? "El folio ya existe o el ID del automovil no existe": ""}</strong>        
 
         <pre>{JSON.stringify(formulario)}</pre>
 
@@ -130,7 +135,7 @@ const NuevaEntrada = () => {
               <div>
               <p className='parrafo'>
                   <label className='label' htmlFor="foto">Fotografia</label>
-                  <input className='input' type="text" name="foto" id="foto" required="obligatorio" placeholder="" onChange={cambiado} />
+                  <input className='input' type="file" name="foto" id="foto" required="obligatorio" />
                 </p>
               </div>
 

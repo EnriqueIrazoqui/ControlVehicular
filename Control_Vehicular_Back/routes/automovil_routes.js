@@ -22,7 +22,7 @@ router.get('/:placas',
     get_automovilByPlacas);
 
 router.put('/',
-    body('idVehiculo').exists().notEmpty().isNumeric().not().isString(),
+    body('idVehiculo').exists().notEmpty().isString(),
     body('idCampus').exists().notEmpty().isString(),
     body('marca').exists().notEmpty().isString(),
     body('modelo').exists().notEmpty().isString(),
