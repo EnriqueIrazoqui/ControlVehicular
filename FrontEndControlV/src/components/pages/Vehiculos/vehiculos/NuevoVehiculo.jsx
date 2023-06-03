@@ -63,7 +63,7 @@ const NuevoVehiculo = () => {
               <div className="inputs">
                 <p className='parrafo'>
                   <label className='label' htmlFor="modelo" >Modelo</label>
-                  <input className='input' type="number" name="modelo" id="modelo" required="obligatorio" placeholder="ej. 2006" onChange={cambiado} />
+                  <input className='input' type="text" name="modelo" id="modelo" required="obligatorio" placeholder="ej. 2006" onChange={cambiado} />
                 </p>
                 <p className='parrafo'>
                     <label className='label' htmlFor="placas" >Placas</label>

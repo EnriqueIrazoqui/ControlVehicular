@@ -32,7 +32,7 @@ const EditarEntrada = () => {
     
           if(datos.ok === true){
             /*setResultado("guardado");*/
-            alert("Guardado con exito");
+            alert("Actualizado con exito");
           }
     
           if (typeof datos.message !== 'undefined') {
@@ -126,7 +126,7 @@ const EditarEntrada = () => {
               </p>
               <p className='parrafo'>
                 <label className='label' htmlFor="fechaHora" >Fecha y Hora</label>
-                <input className='input' type="date" name="fechaHora" id="fechaHora" required="obligatorio" placeholder="Ej: 1" onChange={cambiado} defaultValue={salida[0]?.fechaHora}/>
+                <input className='input' type="text" name="fechaHora" id="fechaHora" required="obligatorio" placeholder="Ej: 1" onChange={cambiado} defaultValue={salida[0]?.fechaHora}/>
               </p>       
           </div>
 

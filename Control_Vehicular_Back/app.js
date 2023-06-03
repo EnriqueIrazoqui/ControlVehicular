@@ -20,23 +20,10 @@ app.use((req, res, next) => {
     next();
 });
 
-// Configuración de Multer para guardar las imágenes en una carpeta específica
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'ruta/para/almacenar/imagenes');
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.originalname);
-    }
-});
-
-// Middleware de Multer para subir la imagen
-const upload = multer({ storage: storage }).single('foto');
-
 app.use('/automovil', require('./routes/automovil_routes'));
 app.use('/refrendos', require('./routes/refrendos_routes'));
 app.use('/seguros', require('./routes/seguros_routes'));
 app.use('/servicios', require('./routes/servicios_routes'));
 app.use('/verificaciones', require('./routes/verificaciones_routes'));
-app.use('/prestamoVehicularSalida', upload,require('./routes/prestamoVehicularSalida_routes'));
+app.use('/prestamoVehicularSalida', require('./routes/prestamoVehicularSalida_routes'));
 app.use('/prestamoVehicularRegreso', require('./routes/prestamoVehicularRegreso_routes'));
