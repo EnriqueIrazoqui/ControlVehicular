@@ -11,5 +11,3 @@ FrontEnd Instalacion:
 2: npm run dev.
 3: Si tienes problemas con el servidor una vez este corriendo, presiona h en la consola.
 
-Pendientes:
-Problemas con PUT (Solo con regreso,salida y vehiculos), imagenes.
