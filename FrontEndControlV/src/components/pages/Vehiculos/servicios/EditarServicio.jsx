@@ -53,7 +53,6 @@ const EditarServicio = () => {
 <div className="formulario">      
 <h1 className='tittle'>Editar servicio</h1>
 
-<pre>{JSON.stringify(formulario)}</pre>
 
   <form action="" onSubmit={editar}>    
 

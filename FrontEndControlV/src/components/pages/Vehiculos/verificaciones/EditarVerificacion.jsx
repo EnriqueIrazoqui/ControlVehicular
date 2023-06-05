@@ -53,7 +53,6 @@ const editar = async(e) => {
     <div className="formulario">      
       <h1 className='tittle'>Editar verificacion</h1>
    
-        <pre>{JSON.stringify(formulario)}</pre>
           <form action="" onSubmit={editar}>    
 
           <div className="inputs">

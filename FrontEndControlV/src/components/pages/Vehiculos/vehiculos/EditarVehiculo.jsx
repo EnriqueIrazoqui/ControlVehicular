@@ -56,7 +56,6 @@ const EditarVehiculo = () => {
 
       <h1 className='tittle'>Editar vehiculo</h1>
 
-      <pre>{JSON.stringify(formulario)}</pre>
 
           <form action="" onSubmit={editar}>    
           <div className="inputs">

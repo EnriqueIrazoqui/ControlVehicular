@@ -41,9 +41,7 @@ const SegurosNuevo = () => {
 
     <div className="formulario">      
       <h1 className='tittle'>Nuevo seguro</h1>
-        <pre>{JSON.stringify(formulario)}</pre>
-
-
+      
           <form action="" onSubmit={guardar}>    
 
 

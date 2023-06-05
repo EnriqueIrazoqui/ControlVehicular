@@ -43,8 +43,6 @@ const NuevaVerificacion = () => {
     <div className="formulario">      
       <h1 className='tittle'>Nueva verificacion</h1>
 
-        <pre>{JSON.stringify(formulario)}</pre>
-
 
           <form action="" onSubmit={guardar}>    
 

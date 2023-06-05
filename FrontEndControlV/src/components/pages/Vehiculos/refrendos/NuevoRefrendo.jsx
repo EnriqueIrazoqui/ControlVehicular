@@ -41,8 +41,6 @@ const NuevoRefrendo = () => {
     <div className="formulario">      
       <h1 className='tittle'>Nuevo refrendo</h1>   
 
-        <pre>{JSON.stringify(formulario)}</pre>
-
           <form action="" onSubmit={guardar}>    
           <div className="inputs">
                 <p className='parrafo'>

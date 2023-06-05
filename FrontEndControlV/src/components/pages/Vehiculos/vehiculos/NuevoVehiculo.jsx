@@ -28,7 +28,7 @@ const NuevoVehiculo = () => {
       }
 
       if(datos.message.status === 406){
-        alert("campus");
+        alert("El campus no existe");
       }
 
       //setResultado(true);

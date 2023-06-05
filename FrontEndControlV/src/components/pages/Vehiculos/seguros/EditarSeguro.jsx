@@ -54,7 +54,6 @@ const ConseguirSeguro = async() =>{
 <div className="formulario">      
   <h1 className='tittle'>Editar seguro</h1> 
   
-    <pre>{JSON.stringify(formulario)}</pre>
       <form action="" onSubmit={editar}>    
       <div className="inputs">
       <p className='parrafo'>
